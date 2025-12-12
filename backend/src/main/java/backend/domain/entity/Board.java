@@ -23,7 +23,6 @@ import lombok.Setter;
 @Table( name = "board")
 public class Board {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "board_id" )
@@ -35,4 +34,7 @@ public class Board {
 	@Lob
 	@Column( columnDefinition = "LONGTEXT")
 	private String content;
+
+
+
 }
