@@ -1,0 +1,78 @@
+# General ignores
+.DS_Store
+*.iml
+*.iws
+*.ipr
+
+# IntelliJ IDEA
+.idea/
+# Except for specific shared config files:
+!.idea/gradle.xml
+!.idea/compiler.xml
+!.idea/vcs.xml
+!.idea/modules.xml
+!.idea/dataSources.xml
+!.idea/data_source_mapping.xml
+!.idea/sqldialects.xml
+# Exclude user-specific IntelliJ files
+*.iml
+*.ipr
+*.iws
+out/
+
+# Gradle
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar # Keep gradle wrapper jar
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+/coverage
+
+# Next.js
+/.next/
+/out/ # For Next.js build output
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Environment files
+.env*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# VS Code
+.vscode/
+
+# STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Other
+*.yaml
