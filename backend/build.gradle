@@ -1,4 +1,3 @@
-
 buildscript {
     ext {
         queryDslVersion = '7.1'
@@ -37,6 +36,7 @@ ext {
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -49,24 +49,55 @@ dependencies {
 
 
     // QueryDSL
+
+//    querydsl-core	핵심 API	모든 QueryDSL 기능의 기반이 되는 공통 로직이 담긴 모듈입니다. 컬렉션 기반 쿼리, 타입 안전 쿼리 DSL 등
+//    querydsl-apt	코드 생성기	Q클래스(ex. QUser)를 생성하기 위한 APT(Annotation Processing Tool). 컴파일 시 엔티티를 분석해 소스코드 생성
+//    querydsl-jpa	JPA용 확장	JPA 환경(Spring Data JPA 포함)에서 사용하는 모듈
+//    querydsl-sql	SQL용 확장	MyBatis, JDBC 등 JPA가 아닌 순수 SQL 환경에서 QueryDSL을 사용할 때 필요한 모듈
+
+    // querydsl-jpa에 querydsl-core 포함됨
     implementation "io.github.openfeign.querydsl:querydsl-jpa:${queryDslVersion}"
 
     // annotationProcessor: 컴파일할 때만 실행되는 어노테이션 기반 코드 생성기
     // Q클래스 생성용 따라서 컴파일 단계에서만 필요
-    annotationProcessor "io.github.openfeign.querydsl:querydsl-apt:${queryDslVersion}"
+    annotationProcessor "io.github.openfeign.querydsl:querydsl-apt:${queryDslVersion}:jpa"
 
+//    공통 어노테이션(Annotation)들을 정의하는 API 모듈
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
+
+//    원리 설명 (Why?)
+//    작성자님이 궁금해하시는 **"동작 원리"**는 다음과 같습니다.
+//
+//            컴파일 시점: 자바 컴파일러(Javac)가 소스 코드를 빌드할 때, annotationProcessor로 등록된 녀석들(여기선 QueryDSL APT)이 동작합니다.
+//
+//            스캔: QueryDSL 프로세서는 코드 중에서 @Entity가 붙은 클래스(Board)를 찾습니다.
+//
+//            코드 생성: 찾은 클래스 정보를 바탕으로 접두사 Q가 붙은 미리보기용 클래스(QBoard)를 자바 코드로 만들어냅니다.
+//
+//            저장: 작성해주신 Gradle 설정(src/main/generated) 경로에 이 파일들을 저장합니다.
 
 }
 
-// TODO Q 클래스 생성 하기
+// Querydsl 빌드 옵션 설정
+def generated = 'src/main/generated'
 
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile).configureEach {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
 sourceSets {
-    main{
-        java{
-            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
-        }
-    }
+    main.java.srcDirs += [generated]
 }
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+    delete file(generated)
+}
+
 
 tasks.named('test') {
     outputs.dir snippetsDir

@@ -25,14 +25,14 @@ public class Board {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "board_id" )
+	@Column(name = "board_id")
 	private Long id;
 
-	@Column( name = "title")
+	@Column( name = "title", nullable = false)
 	private String title;
 
 	@Lob
-	@Column( columnDefinition = "LONGTEXT")
+	@Column( columnDefinition = "LONGTEXT", nullable = false)
 	private String content;
 
 
