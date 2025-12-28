@@ -76,3 +76,4 @@ bin/
 
 # Other
 *.yaml
+/backend/src/main/generated/

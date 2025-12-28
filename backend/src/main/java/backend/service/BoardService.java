@@ -2,7 +2,7 @@ package backend.service;
 
 import org.springframework.stereotype.Service;
 
-import backend.domain.BoardRepository;
+import backend.domain.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

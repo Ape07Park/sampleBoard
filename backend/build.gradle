@@ -68,7 +68,6 @@ dependencies {
 
 
 //    원리 설명 (Why?)
-//    작성자님이 궁금해하시는 **"동작 원리"**는 다음과 같습니다.
 //
 //            컴파일 시점: 자바 컴파일러(Javac)가 소스 코드를 빌드할 때, annotationProcessor로 등록된 녀석들(여기선 QueryDSL APT)이 동작합니다.
 //
