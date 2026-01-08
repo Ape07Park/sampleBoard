@@ -1,5 +1,6 @@
 package backend.domain.board.entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,9 +32,21 @@ public class Board {
 	@Column( name = "title", nullable = false)
 	private String title;
 
+
+	@Column(name = "writer_name", nullable = false)
+	private String writerName;
+
 	@Lob
 	@Column( columnDefinition = "LONGTEXT", nullable = false)
 	private String content;
+
+	@Column(name = "read_count", nullable = false)
+	@Builder.Default
+	private Integer readCount = 0;
+
+	// TODO 첨부파일 추가하기
+
+	// TODO 감사 기능 추가하기
 
 
 
